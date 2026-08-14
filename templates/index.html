@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Arduino</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="dashboard-wrapper">
+        <header>
+            <h1>Command Center</h1>
+            <p class="subtitle">Live Sensor Telemetry</p>
+        </header>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                    <h2>Voltage</h2>
+                </div>
+                <div class="value-container">
+                    <div class="value" id="tensiune">-- V</div>
+                    <div class="indicator" id="voltage-indicator"></div>
+                </div>
+            </div>
+
+            
+            <div class="card">
+                <div class="card-header">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+                    </svg>
+                    <h2>Temperature</h2>
+                </div>
+                <div class="value-container">
+                    <div class="value" id="temperatura">-- °C</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timestamp-container">
+            <div class="timestamp">
+                Last updated: <span id="timestamp">--</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

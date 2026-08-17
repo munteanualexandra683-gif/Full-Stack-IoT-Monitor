@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, Response
 import sqlite3
 
 app = Flask(__name__)
@@ -68,6 +68,25 @@ def get_history_data():
         })
         
     return jsonify(date_formatate)
+
+
+@app.route('/api/download')
+def download_csv():
+    conexiune = sqlite3.connect('senzori.db')
+    cursor = conexiune.cursor()
+    cursor.execute("SELECT id, timestamp, tensiune, temperatura FROM istoric ORDER BY id ASC")
+    randuri = cursor.fetchall()
+    conexiune.close()
+    
+    csv_data = "ID,Timestamp(UTC),Voltage(V),Temperature(C)\n"
+    for rand in randuri:
+        csv_data += f"{rand[0]},{rand[1]},{rand[2]},{rand[3]}\n"
+        
+    return Response(
+        csv_data,
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment; filename=sensor_data.csv"}
+    )
 
 
 @app.route('/api/date', methods=['POST'])

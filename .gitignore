@@ -1,0 +1,13 @@
+# Database files
+*.db
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments and secrets
+venv/
+env/
+.env

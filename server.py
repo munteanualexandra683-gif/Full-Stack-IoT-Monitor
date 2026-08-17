@@ -47,6 +47,29 @@ def get_latest_data():
     return jsonify(date_formatate)
 
 
+@app.route('/api/history')
+def get_history_data():
+    conexiune = sqlite3.connect('senzori.db')
+    cursor = conexiune.cursor()
+    
+    comanda_sql = "SELECT timestamp, tensiune, temperatura FROM istoric ORDER BY id DESC LIMIT 20"
+    cursor.execute(comanda_sql)
+    randuri = cursor.fetchall()
+    conexiune.close()
+    
+    randuri.reverse()
+    
+    date_formatate = []
+    for rand in randuri:
+        date_formatate.append({
+            "timestamp": rand[0],
+            "tensiune": rand[1],
+            "temperatura": rand[2]
+        })
+        
+    return jsonify(date_formatate)
+
+
 @app.route('/api/date', methods=['POST'])
 def primeste_date():
     try:
